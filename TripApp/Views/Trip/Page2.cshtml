@@ -1,0 +1,24 @@
+﻿@model Page2ViewModel
+@{
+    ViewBag.Title = "Add Trip - Page 2";
+}
+
+<h2 class="text-center mb-4">Add Info for the @Model.AccommodationName</h2>
+
+<form class="custom-form" asp-action="Page2" asp-controller="Trip" method="post">
+    <div class="form-group">
+        <label for="AccommodationPhone">Phone Number</label>
+        <input class="form-control" asp-for="AccommodationPhone" />
+        <span class="text-danger" asp-validation-for="AccommodationPhone"></span>
+    </div>
+    <div class="form-group">
+        <label for="AccommodationEmail">Email Address</label>
+        <input class="form-control" asp-for="AccommodationEmail" />
+        <span class="text-danger" asp-validation-for="AccommodationEmail"></span>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3">
+        <button class="btn bg-black text-white px-4" type="submit">Next</button>
+        <a class="btn btn-outline-danger" asp-controller="Trip" asp-action="Cancel">Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,38 @@
+﻿@model Page1ViewModel
+@{
+    ViewBag.Title = "Add Trip - Page 1";
+}
+
+<h2 class="text-center mb-4">Add Trip Destination and Dates</h2>
+
+<form class="custom-form" asp-action="Page1" asp-controller="Trip" method="post">
+    <div class="form-group">
+        <label for="DestinationId">Destination</label>
+        <select asp-for="DestinationId" asp-items="Model.Destinations" class="form-control">
+            <option value="">Select Destination</option>
+        </select>
+        <span asp-validation-for="DestinationId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="AccommodationId">Accommodation</label>
+        <select asp-for="AccommodationId" asp-items="Model.Accommodations" class="form-control">
+            <option value="">Select Accommodation</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="StartDate">Start Date</label>
+        <input class="form-control" asp-for="StartDate" type="date" />
+        <span class="text-danger" asp-validation-for="StartDate"></span>
+    </div>
+    <div class="form-group">
+        <label for="EndDate">End Date</label>
+        <input class="form-control" asp-for="EndDate" type="date" />
+        <span class="text-danger" asp-validation-for="EndDate"></span>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3">
+        <button class="btn bg-black text-white px-4" type="submit">Next</button>
+        <a class="btn btn-outline-danger" asp-controller="Trip" asp-action="Cancel">Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "My Trip Log";
+}
+@model List<Trip>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success" id="message">
+        <h2 class="text-center">@ViewBag.Message</h2>
+    </div>
+}
+
+<div class="text-center mb-5">
+    <a class="btn bg-black text-white px-4" asp-controller="Trip" asp-action="Add">Add Trip</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Destination</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Accommodation</th>
+            <th>Things To Do</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trip in Model)
+        {
+            <tr>
+                <td>@trip.Destination?.Name</td>
+                <td>@trip.StartDate.ToShortDateString()</td>
+                <td>@trip.EndDate.ToShortDateString()</td>
+                <td>
+                    @if (trip.Accommodation != null)
+                    {
+                        <div class="d-flex flex-column">
+                            <p>@trip.Accommodation.Name</p>
+                            <p>Phone: @trip.Accommodation.PhoneNumber | Email: @trip.Accommodation.Email</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No Accommodation</p>
+                    }
+                </td>
+                <td>
+                    @if (trip.Activities != null && trip.Activities.Any())
+                    {
+                        <ul>
+                            @foreach (var activity in trip.Activities)
+                            {
+                                <li>@activity.Name</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No Activities</p>
+                    }
+                </td>
+                <td>
+                    <form asp-controller="Home" asp-action="Delete" asp-route-id="@trip.TripId" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this trip?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    // Display Success message only for 10 seconds
+    setTimeout(function () {
+        var messageElement = document.getElementById('message');
+        if (messageElement) {
+            messageElement.style.display = 'none';
+        }
+    }, 10000);
+</script>
